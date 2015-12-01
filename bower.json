@@ -1,0 +1,21 @@
+{
+  "name": "name",
+  "version": "0.0.1",
+  "authors": [
+    ""
+  ],
+  "description": "description",
+  "moduleType": [
+    "node"
+  ],
+  "license": "ISC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}

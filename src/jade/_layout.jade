@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title NAI App
+    meta(name='description', content='NAI Technician Assignment App')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    // build:css styles/vendor.css
+    // bower:css
+    // endbower
+    // endbuild
+
+    link(rel='stylesheet', href='styles/main.css')
+
+  body
+    !='<!--[if lte IE 9]>'
+    p.browsehappy
+      | You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+    !='\n<![endif]-->'
+
+    block app
+
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/riot/2.3.11/riot+compiler.js')
+
+    // build:js tags.js
+    script(src='tags/projects.tag.js')
+    // endbuild
+
+    script(src='scripts/main.bundle.js')
+
+    include includes/google-analytics.jade

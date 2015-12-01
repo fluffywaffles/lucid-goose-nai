@@ -1,0 +1,18 @@
+all-font-types = {
+  woff: 'woff'
+  embedded-opentype: 'eot'
+  truetype: 'ttf'
+  svg: 'svg'
+}
+
+font-face(name)
+  name-parts = split(' ', name)
+  path       = join('/', name-parts)
+
+  @font-face
+    font-family name
+    urls = 'url(/fonts/' + path + '.eot)'
+    src unquote(pop(urls))
+    for font-format, font-ext in all-font-types
+      push(urls, 'url(/fonts/' + path + '.' + font-ext + ') format(' + font-format + ')')
+    src unquote(join(',', urls))

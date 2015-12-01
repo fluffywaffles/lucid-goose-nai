@@ -1,0 +1,10 @@
+projects
+  h3 Projects
+
+  ol
+    li(each='{ projects }')
+      { name }
+
+  script.
+    @projects =
+      * name: 'Project 1'
