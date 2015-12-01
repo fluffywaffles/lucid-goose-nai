@@ -14,4 +14,4 @@ module.exports = (gulp, $) ->
         +expr
       }
       .pipe gulp.dest '.tmp/tags'
-      .pipe $.browser-sync.stream!
+      .pipe $.browser-sync.reload { +stream }

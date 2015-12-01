@@ -1,0 +1,29 @@
+account-nav
+  nav
+    ul
+      li(onclick='{ reset }') NAI Admin Page
+      li(each='{ breadcrumbs }')
+        a(href='#{ link }') { title }
+
+  script.
+    @breadcrumbs = [ ]
+
+    @reset = ->
+      riot.route '/'
+
+    self = this
+
+    r = riot.route.create!
+
+    r '/work-order/*' (order) ->
+      self.update {
+        breadcrumbs: [
+          * title: 'Work Order #' + order
+            link: '/work-order/' + order
+        ]
+      }
+
+    r ->
+      self.update {
+        breadcrumbs: [ ]
+      }

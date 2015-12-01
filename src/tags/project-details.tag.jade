@@ -1,0 +1,30 @@
+project-details
+  h3.back-button(onclick='{ reset }') &larr; back
+
+  h3 { project.name }
+  h4 Location
+  p { project.zip }
+
+  technicians
+
+  script.
+    @projects = app.projects
+
+    @reset    = ->
+      riot.route '/'
+
+    self = this
+
+    r = riot.route.create!
+
+    r '/work-order/*' (order) ->
+      project = self.projects.filter (p) ->
+        p.id is +order
+      .0
+
+      self.update {
+        project: project
+      }
+
+      if not project
+        @reset!

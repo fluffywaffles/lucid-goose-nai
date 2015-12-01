@@ -1,0 +1,21 @@
+main
+  .content
+    projects(hide='{ details }')
+    project-details(show='{ details }')
+
+  script.
+    @details = false
+
+    self = this
+
+    r = riot.route.create!
+
+    r '/work-order/*' ->
+      self.update {
+        +details
+      }
+
+    r ->
+      self.update {
+        -details
+      }

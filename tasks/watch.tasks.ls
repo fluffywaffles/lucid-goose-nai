@@ -14,7 +14,7 @@ module.exports = (gulp, $) !->
     gulp.watch 'src/styles/**/*.styl', [ 'stylus' ]
     gulp.watch 'src/scripts/**/*.ls', [ 'livescript' ]
     gulp.watch 'src/tags/**/*', [ 'riot' ]
-    bify-wify.fwify '.tmp/scripts/main.js' 'main.bundle.js' '.tmp/scripts'
+    bify-wify.fwify '.tmp/scripts/main.js' 'main.bundle.js' '.tmp/scripts' { standalone: 'app' }
 
   gulp.task \watch:images ->
     gulp.watch 'res/images/**/*', [ 'images' ]

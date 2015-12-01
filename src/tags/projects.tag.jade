@@ -1,10 +1,9 @@
 projects
-  h3 Projects
+  h3 Work Orders
 
   ol
     li(each='{ projects }')
-      { name }
+      a(href='#/work-order/{ id }') { name }
 
   script.
-    @projects =
-      * name: 'Project 1'
+    @projects = app.projects

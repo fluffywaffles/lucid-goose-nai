@@ -1,3 +1,5 @@
+connect = require 'gulp-connect'
+
 config = require './.tasks.config.ls'
 
 module.exports = (gulp, $) !->
