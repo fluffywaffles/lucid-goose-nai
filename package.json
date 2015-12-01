@@ -31,7 +31,10 @@
     "wiredep": "^2.2.2"
   },
   "dependencies": {
+    "axios": "^0.7.0",
     "bify-wify": "^1.0.3",
+    "connect": "^3.4.0",
+    "pouchdb": "^5.1.0",
     "riot": "^2.3.11"
   }
 }
