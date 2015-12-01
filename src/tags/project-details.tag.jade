@@ -1,11 +1,9 @@
 project-details
-  h3.back-button(onclick='{ reset }') &larr; back
-
   h3 { project.name }
   h4 Location
   p { project.zip }
 
-  technicians
+  technician-list
 
   script.
     @projects = app.projects

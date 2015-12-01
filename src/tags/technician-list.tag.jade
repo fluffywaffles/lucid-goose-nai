@@ -1,0 +1,11 @@
+technician-list
+  h4 Assigned Technicians
+  ul
+    technician(each='{ assigned }', action='Remove')
+  h4 Available Technicians (Top 5 Closest)
+  ul
+    technician(each='{ available }', action='Assign')
+
+  script.
+    @assigned = [ 0 ]
+    @available = [ 0 ]

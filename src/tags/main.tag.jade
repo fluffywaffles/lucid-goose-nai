@@ -1,10 +1,18 @@
 main
   .content
-    projects(hide='{ details }')
-    project-details(show='{ details }')
+    .projects.card(class='{ active(details, false) }')
+      projects
+    .details.card(class='{ active(details, true) }')
+      project-details
 
   script.
     @details = false
+
+    @active = (test, value) ->
+      if test is value
+        'active'
+      else
+        ''
 
     self = this
 

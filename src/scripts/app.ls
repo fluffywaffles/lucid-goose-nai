@@ -1,3 +1,4 @@
+# NOTE(jordan): request this data from a Store
 window.app = {
   projects:
     * name: 'Project 1'

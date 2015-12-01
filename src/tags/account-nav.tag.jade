@@ -2,8 +2,8 @@ account-nav
   nav
     ul
       li(onclick='{ reset }') NAI Admin Page
-      li(each='{ breadcrumbs }')
-        a(href='#{ link }') { title }
+      li.crumb(each='{ breadcrumbs }', style='opacity: { opacity }')
+        a(href='#' + '{ link }') { title }
 
   script.
     @breadcrumbs = [ ]
@@ -16,14 +16,28 @@ account-nav
     r = riot.route.create!
 
     r '/work-order/*' (order) ->
+      old-len = self.breadcrumbs.filter (b) -> b.opacity > 0
+                .length
+
       self.update {
         breadcrumbs: [
           * title: 'Work Order #' + order
             link: '/work-order/' + order
+            opacity: if old-len is 0 then 0 else 1
         ]
       }
 
+      setTimeout ->
+        self.update {
+          breadcrumbs: self.breadcrumbs.map (b) ->
+            b.opacity = 1
+            b
+        }
+        , 500
+
     r ->
       self.update {
-        breadcrumbs: [ ]
+        breadcrumbs: self.breadcrumbs.map (b) ->
+          b.opacity = 0
+          b
       }
