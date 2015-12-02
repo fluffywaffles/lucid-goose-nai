@@ -8,9 +8,13 @@ riot.route '/work-order/*' (index) ->
       json = xml2json.parser xml
 
       servicerequest = json.response.servicerequest
-      technicians = servicerequest.customfields.customfield.value
+      if servicerequest.customfields
+        technicians = servicerequest.customfields.customfield.value
 
-      app.current-technicians = if typeof technicians === 'object' then technicians else JSON.parse technicians
+        try
+          app.current-technicians = JSON.parse technicians
+        catch e
+          app.current-technicians = [ ]
 
       axios.get config.api + '/technicians/nearby?zip=' + servicerequest.customerlocationpostalcode
         ..then ({ data: response }) ->
