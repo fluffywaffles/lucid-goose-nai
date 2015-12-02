@@ -19,9 +19,10 @@ riot.route '/work-order/*' (index) ->
         try
           app.current-technicians = JSON.parse technicians
         catch e
-          console.error(e)
+          console.info('Parse fail. Assume no technicians are assigned.')
+          console.info(e)
 
-      axios.get config.api + '/technicians/nearby?zip=' + servicerequest.customerlocationpostalcode
+      axios.get config.api + '/technician/nearby?zip=' + servicerequest.customerlocationpostalcode
         ..then ({ data: response }) ->
           # list of technicians sorted by closest to farthest
           app.nearby-technicians = response
@@ -30,6 +31,12 @@ riot.route '/work-order/*' (index) ->
           console.log err
     ..catch (err) ->
       console.log err
+
+app.load-technicians = (techs) ->
+  req = config.api + '/technician?'
+  techs.for-each (t) ->
+    req += '&take[]=' + t.id
+  axios.get req
 
 # kickoff router
 riot.route.start true

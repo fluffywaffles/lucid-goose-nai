@@ -35,3 +35,18 @@ technician-list
         -loading
       }
 
+      app.load-technicians self.available
+        ..then ({ data: response }) ->
+          avail = [].slice.call self.available
+          response.rows.for-each (t, i) ->
+            if t.error
+              avail[i].error = true
+            else
+              t.doc.distance = avail[i].distance
+              avail[i] = t.doc
+          self.update {
+            available: avail
+          }
+        ..catch (err) ->
+          console.log err
+

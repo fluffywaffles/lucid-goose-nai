@@ -1,10 +1,7 @@
 technician
-  span
-    u { name }
+  span { name.first } { name.last }
   span { distance } miles away
   button { action }
 
   script.
-    @name = 'Fucker'
-    @distance = 5
     @action = @root.attributes.action.value

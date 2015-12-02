@@ -38,7 +38,6 @@ var technician_ddoc = {
 }
 
 app.get('/api', function (req, res) {
-  console.log('api!')
   db.info().then(function (info) {
     console.log(info)
     res.json(info)
@@ -68,7 +67,7 @@ app.all('/api/technicians', function (req, res, next) {
   })
 })
 
-app.get('/api/technicians/nearby', function (req, res) {
+app.get('/api/technician/nearby', function (req, res) {
   console.log(req.query)
   db.query('technicians/by_zip').catch(function (err) {
     res.json(err)
@@ -94,14 +93,12 @@ app.get('/api/technicians/nearby', function (req, res) {
   }))
 })
 
-app.route('/api/technicians')
+app.route('/api/technician')
   .get(function (req, res) {
     db.allDocs({
-      startkey: req.query.startkey,
-      limit: req.query.limit,
-      include_docs: req.query.hasOwnProperty('!'),
-      startkey: req.query.id,
-      limit: req.query.id && 1
+      include_docs: true,
+      keys: req.query.take,
+      key: req.query.id
     }).then(function (docs) {
       res.json(docs)
     }).catch(function (err) {
