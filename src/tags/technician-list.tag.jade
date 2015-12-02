@@ -19,20 +19,47 @@ technician-list
         technician(each='{ available }', action='Assign')
 
   script.
-    @project   = app.current-project
-    @assigned  = [ ]
-    @available = [ ]
-    @loading   = true
+    @project      = app.current-project
+    @assigned     = [ ]
+    @assigned-ids = [ ]
+    @available    = [ ]
+    @loading      = true
 
     self = this
 
-    r = riot.route.create!
-
-    app.on \technicians-loaded ->
+    @assign = (tech) ->
+      tech.index = self.assigned.length
+      assigned = [ ...self.assigned, { id: tech._id, tech.distance, tech.name } ]
       self.update {
-        assigned: app.current-technicians
-        available: app.nearby-technicians.slice(0, 5)
-        -loading
+        assigned: assigned
+        assigned-ids: assigned.map (.id)
+      }
+
+      self.calculate-available!
+      self.sync!
+
+    @unassign = (tech) ->
+      removed = self.assigned.slice!
+      removed.splice tech.index, 1
+      self.update {
+        assigned: removed
+        assigned-ids: removed.map (.id)
+      }
+
+      self.calculate-available!
+      self.sync!
+
+    @calculate-available = ->
+      available = [ ]
+      for t in app.nearby-technicians
+        if available.length > 5
+          break
+        if t.id in self.assigned-ids
+          console.log 'already assigned', t
+        else
+          available.push t
+      self.update {
+        available: available
       }
 
       app.load-technicians self.available
@@ -43,10 +70,48 @@ technician-list
               avail[i].error = true
             else
               t.doc.distance = avail[i].distance
+              t.doc.index = i
               avail[i] = t.doc
           self.update {
             available: avail
           }
         ..catch (err) ->
           console.log err
+
+    @sync = ->
+      axios.post config.api + '/technician/assign', {
+        project: self.project
+        technicians: [{ t.id, t.name, t.distance } for t in self.assigned]
+      }
+      .then ({ data: response }) ->
+        xml = response.data
+        json = xml2json.parser xml
+
+        if json.response.status is not "ok"
+          throw 'Assign/Remove Failed'
+        else
+          console.log 'success', json.response
+      .catch (err) ->
+        console.log err
+
+    app.on \technicians-loaded ->
+      assigned = [ ]
+      available = [ ]
+
+      assigned = app.current-technicians
+      self.assigned-ids = assigned.map (.id)
+
+      self.update {
+        assigned: assigned
+        -loading
+      }
+
+      self.calculate-available!
+
+    r = riot.route.create!
+
+    r '/work-order/*' ->
+      self.update {
+        +loading
+      }
 

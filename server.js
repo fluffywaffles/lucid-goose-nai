@@ -21,9 +21,9 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type')
 
   // Be nice to OPTIONS
-  if (req.method === 'OPTIONS') res.statusCode(200).send('ok')
-
-  next()
+  if (req.method === 'OPTIONS')
+    res.status(200).send('ok')
+  else next()
 })
 
 var db  = new PouchDB('http://localhost:5984/nai')
@@ -44,7 +44,7 @@ app.get('/api', function (req, res) {
   })
 })
 
-app.all('/api/technicians', function (req, res, next) {
+app.all('/api/technician', function (req, res, next) {
   db.get(technician_ddoc._id).then(function (ddoc) {
     console.log('update index')
     technician_ddoc._rev = ddoc._rev
@@ -118,6 +118,21 @@ app.route('/api/technician')
     } else {
       res.send('Invalid technician.')
     }
+  })
+
+app.route('/api/technician/assign')
+  .post(function (req, res) {
+    var assignment = req.body
+    console.log(assignment)
+
+    blueFolder.serviceRequests.assignTech(
+      assignment.project,
+      assignment.technicians
+    ).then(function (response) {
+      res.json(response)
+    }).catch(function (err) {
+      res.json(err)
+    })
   })
 
 app.get('/api/work-orders', function (req, res) {

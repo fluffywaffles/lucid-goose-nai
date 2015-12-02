@@ -19,8 +19,8 @@ riot.route '/work-order/*' (index) ->
         try
           app.current-technicians = JSON.parse technicians
         catch e
-          console.info('Parse fail. Assume no technicians are assigned.')
-          console.info(e)
+          console.info 'Parse fail. Assume no technicians are assigned.'
+          console.info e
 
       axios.get config.api + '/technician/nearby?zip=' + servicerequest.customerlocationpostalcode
         ..then ({ data: response }) ->
