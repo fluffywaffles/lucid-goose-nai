@@ -8,6 +8,7 @@ module.exports = (gulp, $) ->
 
   gulp.task \riot ->
     gulp.src 'src/tags/*'
+      .pipe $.plumber!
       .pipe riot {
         template: 'jade'
         type: 'livescript'

@@ -21,13 +21,23 @@ blueFolder._req = function (endpoint, request) {
 }
 
 blueFolder.serviceRequests = Object.create(null)
+
 blueFolder.serviceRequests.list = function () {
   return blueFolder._req (
     serviceRequestsEndpoint + '/list.aspx',
-    '<request>'
-      + '<serviceRequestList>'
-        + '<listType> basic </listType>'
-      + '</serviceRequestList>'
+      '<request>'
+    +   '<serviceRequestList>'
+    +     '<listType> basic </listType>'
+    +   '</serviceRequestList>'
+    + '</request>'
+  )
+}
+
+blueFolder.serviceRequests.get = function (id) {
+  return blueFolder._req (
+    serviceRequestsEndpoint + '/get.aspx',
+      '<request>'
+    +   '<serviceRequestId>' + id + '</serviceRequestId>'
     + '</request>'
   )
 }

@@ -21,7 +21,7 @@ account-nav
 
       self.update {
         breadcrumbs: [
-          * title: 'Work Order #' + order
+          * title: 'Work Order #' + order + ' (' + projects.projects[order].description + ')'
             link: '/work-order/' + order
             opacity: if old-len is 0 then 0 else 1
         ]

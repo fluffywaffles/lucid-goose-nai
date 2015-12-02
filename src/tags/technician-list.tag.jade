@@ -1,11 +1,37 @@
 technician-list
-  h4 Assigned Technicians
-  ul
-    technician(each='{ assigned }', action='Remove')
-  h4 Available Technicians (Top 5 Closest)
-  ul
-    technician(each='{ available }', action='Assign')
+  .content
+    h4 Assigned Technicians
+    p(show='{ loading }', style='color: green') Loading...
+
+    .hide-while-load(hide='{ loading }')
+      p(if='{ assigned.length is 0 }', style='color: gray')
+        i There are no technicians assigned to this work order.
+      ul
+        technician(each='{ assigned }', action='Remove')
+
+    h4 Available Technicians (Top 5 Closest)
+    p(show='{ loading }', style='color: green') Loading...
+
+    .hide-while-load(hide='{ loading }')
+      p(if='{ available.length is 0 }', style='color: gray')
+        i There are no technicians available for this work order.
+      ul
+        technician(each='{ available }', action='Assign')
 
   script.
-    @assigned = [ 0 ]
-    @available = [ 0 ]
+    @project   = app.current-project
+    @assigned  = [ ]
+    @available = [ ]
+    @loading   = true
+
+    self = this
+
+    r = riot.route.create!
+
+    app.on \technicians-loaded ->
+      self.update {
+        assigned: app.current-technicians
+        available: app.nearby-technicians.slice(0, 5)
+        -loading
+      }
+

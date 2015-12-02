@@ -17,5 +17,7 @@
     "tests"
   ],
   "dependencies": {
+    "axios": "~0.7.0",
+    "xml2json": "~1.1.1"
   }
 }

@@ -3,6 +3,7 @@ compile-tasks = <[
   stylus
   livescript
   riot
+  browserify
 ]>
 
 serve-tasks = <[

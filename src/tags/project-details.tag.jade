@@ -1,14 +1,20 @@
 project-details
-  h3 { project.name }
-  h4 Location
-  p { project.zip }
+  h3 { project.description }
+  .pileup
+    .block
+      h4 Customer
+      p { project.customercontactname }
+    .block
+      h4 Location
+      p
+      | { project.customerlocationcity },
+      | { project.customerlocationcountry },
+      | { project.customerlocationpostalcode }
 
   technician-list
 
   script.
-    @projects = app.projects
-
-    @reset    = ->
+    @reset = ->
       riot.route '/'
 
     self = this
@@ -16,13 +22,14 @@ project-details
     r = riot.route.create!
 
     r '/work-order/*' (order) ->
-      project = self.projects.filter (p) ->
-        p.id is +order
-      .0
-
       self.update {
-        project: project
+        project: app.projects[order]
       }
 
-      if not project
-        @reset!
+      app.on \update ->
+        self.update {
+          project: app.projects[order]
+        }
+
+      if not self.project
+        self.reset!

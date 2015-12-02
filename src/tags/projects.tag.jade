@@ -1,9 +1,21 @@
 projects
   h3 Work Orders
 
-  ol
+  h4(if='{ loading }') Loading...
+
+  ol(hide='{ loading }')
     li(each='{ projects }')
-      a(href='#/work-order/{ id }') { name }
+      a(href='#/work-order/{ index }') { description }
 
   script.
     @projects = app.projects
+
+    self = this
+
+    app.on \update ->
+      self.update {
+        projects: app.projects
+        -loading
+      }
+
+    @loading = true

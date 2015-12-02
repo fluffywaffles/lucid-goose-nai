@@ -8,7 +8,7 @@ var technician = {
   address: String,
   city: String,
   state: String,
-  zip: Number,
+  zip: String,
   states: [ String ],
   skills: [ String ],
   phoneSystems: [ String ],
