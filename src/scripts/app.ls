@@ -1,5 +1,7 @@
-# NOTE(jordan): request this data from a Store
 
+require './_config'
+
+# setup
 app = {
   projects: [
     { description: 'Loading...' }
@@ -15,10 +17,7 @@ app.on \load-projects (data) ->
 app.on \update ->
   console.log 'update view'
 
-window.config = {
-  api: 'http://localhost:9999/api'
-}
-
+# init
 axios.get config.api + '/work-orders'
   ..then ({ data: response }) ->
     xml = response.data

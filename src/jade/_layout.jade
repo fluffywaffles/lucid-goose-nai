@@ -28,7 +28,8 @@ html
     script(src='bower_components/axios/dist/axios.js')
     // endbuild
 
-    script(src='scripts/app.js')
+    // app setup
+    script(src='scripts/app.bundle.js')
 
     // build:js tags.js
     script(src='tags/account-nav.tag.js')
@@ -39,6 +40,7 @@ html
     script(src='tags/technician.tag.js')
     // endbuild
 
+    // app main
     script(src='scripts/main.bundle.js')
 
     include includes/google-analytics.jade

@@ -33,7 +33,10 @@ module.exports = (gulp, $) !->
       .pipe gulp.dest \.tmp/scripts
       .pipe reload { +stream }
 
-  gulp.task \browserify ->
+  gulp.task \bundle:ls [ 'livescript' ] ->
     bify-wify.fbify '.tmp/scripts/main.js',
                     'main.bundle.js',
+                    '.tmp/scripts'
+    bify-wify.fbify '.tmp/scripts/app.js',
+                    'app.bundle.js',
                     '.tmp/scripts'

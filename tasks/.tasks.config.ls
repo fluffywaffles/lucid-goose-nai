@@ -1,9 +1,8 @@
 compile-tasks = <[
   jade
   stylus
-  livescript
+  bundle:ls
   riot
-  browserify
 ]>
 
 serve-tasks = <[

@@ -9,6 +9,7 @@ projects
 
   script.
     @projects = app.projects
+    @loading = true
 
     self = this
 
@@ -17,5 +18,3 @@ projects
         projects: app.projects
         -loading
       }
-
-    @loading = true

@@ -1,7 +1,10 @@
+# main
+
+# start app
 riot.mount '*'
 
+# main route
 riot.route '/work-order/*' (index) ->
-  console.log app.projects[index].servicerequestid
   axios.get config.api + '/work-orders/get?id=' + app.projects[index].servicerequestid
     ..then ({ data: response }) ->
       xml = response.data
@@ -16,16 +19,17 @@ riot.route '/work-order/*' (index) ->
         try
           app.current-technicians = JSON.parse technicians
         catch e
+          console.error(e)
 
       axios.get config.api + '/technicians/nearby?zip=' + servicerequest.customerlocationpostalcode
         ..then ({ data: response }) ->
-          # sparse list of technicians sorted by closest to farthest
+          # list of technicians sorted by closest to farthest
           app.nearby-technicians = response
-          console.log(response)
           app.trigger \technicians-loaded
         ..catch (err) ->
-          console.log(err)
+          console.log err
     ..catch (err) ->
       console.log err
 
+# kickoff router
 riot.route.start true
