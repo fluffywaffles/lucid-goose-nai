@@ -6,11 +6,6 @@ html
     meta(name='description', content='NAI Technician Assignment App')
     meta(name='viewport', content='width=device-width, initial-scale=1')
 
-    // build:css styles/vendor.css
-    // bower:css
-    // endbower
-    // endbuild
-
     link(rel='stylesheet', href='styles/main.css')
 
   body
@@ -23,7 +18,7 @@ html
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/riot/2.3.11/riot+compiler.js')
 
-    // build:js vendor.js
+    // build:js scripts/vendor.js
     script(src='bower_components/xml2json/xml2json.js')
     script(src='bower_components/axios/dist/axios.js')
     // endbuild
@@ -31,7 +26,7 @@ html
     // app setup
     script(src='scripts/app.bundle.js')
 
-    // build:js tags.js
+    // build:js scripts/tags.js
     script(src='tags/account-nav.tag.js')
     script(src='tags/main.tag.js')
     script(src='tags/projects.tag.js')

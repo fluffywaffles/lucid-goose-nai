@@ -1,4 +1,4 @@
-config = require './_tasks.config.ls'
+config = require './.tasks.config.ls'
 
 module.exports = (gulp, $) !->
   bsInit = (baseDir) ->
