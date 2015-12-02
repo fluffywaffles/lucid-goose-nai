@@ -1,6 +1,4 @@
-connect = require 'gulp-connect'
-
-config = require './.tasks.config.ls'
+config = require './_tasks.config.ls'
 
 module.exports = (gulp, $) !->
   bsInit = (baseDir) ->

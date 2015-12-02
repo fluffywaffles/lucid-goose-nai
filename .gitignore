@@ -1,7 +1,9 @@
 node_modules
 .tmp
 dist
-_*
+_replication
+_replicator
+_users
 pouch__*
 log.txt
 nai
