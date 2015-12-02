@@ -8,6 +8,10 @@
 
 `npm i && gulp`
 
+### Three Terminal:
+
+`node-supervisor server/server.js`
+
 ### Browser:
 
 localhost:3000 is the interface
