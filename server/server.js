@@ -54,14 +54,7 @@ app.all('/api/technician', function (req, res, next) {
     return db.put(technician_ddoc)
   }).then(function () {
     console.log('index up! Leggo')
-    db.query('technician_index/by_zip', {
-      limit: 0
-    }).then(function (res) {
-      console.log('index populated!')
-      next()
-    }).catch(function (err) {
-      res.json(err)
-    })
+    next()
   }).catch(function (err) {
     res.json(err)
   })
