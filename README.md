@@ -1,5 +1,9 @@
 ## How do I do
 
+## It’s Precompiled
+
+Just look inside the ‘live’ directory.
+
 ### One terminal:
 
 `npm i -g pouchdb-server && pouchdb-server --port 5984`
