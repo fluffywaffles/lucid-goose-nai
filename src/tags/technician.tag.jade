@@ -1,15 +1,39 @@
 technician
-  span { name.first } { name.last }
-  span { distance } miles away
-  button(onclick='{ assignOrRemove }') { action }
+  h3(show='{ loading }') Loading...
+  .hide-while-loading(hide='{ loading }')
+    h3 { tech.name.first } { tech.name.last }
+    p <a href='mailto:{ tech.email }'>{ tech.email }</a> | { tech.phone }
+    h4 Address
+    p { tech.address }, { tech.city }, { tech.state } { tech.zip }
+    h4 States
+    p { tech.states }
+    h4 Skills
+    p { tech.skills }
+    h4 Phone Systems
+    p { tech.phoneSystems }
+    h4 Field of Work
+    p { tech.fieldOfWork }
+    h4 Billing Rates
+    p Standard: { tech.billing.standard }, Overtime: { tech.billing.overtime }, Weekend: { tech.billing.weekend }
+    h4 W9 TIN
+    p { tech.w9tin }
+    h4 Insured?
+    p { tech.insured }
+    h4 Union?
+    p { tech.union }
 
   script.
     self = this
 
-    @action = @root.attributes.action.value
+    r = riot.route.create!
 
-    @assignOrRemove = ->
-      if self.action is 'Assign'
-        self.parent.assign(self)
-      else
-        self.parent.unassign(self)
+    r '/technician/*' (tid) ->
+      app.load-technicians([ { id: tid } ])
+      .then (response) ->
+        console.log response
+        self.update {
+          tech: response.data.rows.0.doc
+        }
+        console.log self.tech
+      .catch (err) ->
+        console.log err

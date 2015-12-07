@@ -7,7 +7,7 @@ technician-list
       p(if='{ assigned.length is 0 }', style='color: gray')
         i There are no technicians assigned to this work order.
       ul
-        technician(each='{ assigned }', action='Remove')
+        technician-item(each='{ assigned }', action='Remove')
 
     h4 Available Technicians (Top 5 Closest)
     p(show='{ loading }', style='color: green') Loading...
@@ -16,7 +16,7 @@ technician-list
       p(if='{ available.length is 0 }', style='color: gray')
         i There are no technicians available for this work order.
       ul
-        technician(each='{ available }', action='Assign')
+        technician-item(each='{ available }', action='Assign')
 
   script.
     @project      = app.current-project

@@ -1,12 +1,15 @@
 main
   .content
-    .projects.card(class='{ active(details, false) }')
+    .projects.card.active
       projects
     .details.card(class='{ active(details, true) }')
       project-details
+    .technician.card(class='{ active(viewTech, true) }')
+      technician
 
   script.
-    @details = false
+    @details  = false
+    @viewTech = false
 
     @active = (test, value) ->
       if test is value
@@ -20,10 +23,17 @@ main
 
     r '/work-order/*' ->
       self.update {
+        -viewTech
         +details
+      }
+
+    r '/technician/*' ->
+      self.update {
+        +viewTech
       }
 
     r ->
       self.update {
         -details
+        -viewTech
       }

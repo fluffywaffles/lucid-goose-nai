@@ -1,0 +1,18 @@
+technician-item
+  span(onclick='{ viewTechnician }') { name.first } { name.last }
+  span { distance } miles away
+  button(onclick='{ assignOrRemove }') { action }
+
+  script.
+    self = this
+
+    @action = @root.attributes.action.value
+
+    @assignOrRemove = ->
+      if self.action is 'Assign'
+        self.parent.assign(self)
+      else
+        self.parent.unassign(self)
+
+    @viewTechnician = ->
+      riot.route '/technician/' + (self._id || self.id)

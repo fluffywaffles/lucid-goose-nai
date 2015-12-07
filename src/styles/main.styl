@@ -33,6 +33,11 @@ main
   display inline-table
   table-layout fixed
   overflow hidden
+
+  ::-webkit-scrollbar
+    display none
+    -webkit-appearance none
+
   .content
     display table-cell
     vertical-align middle
@@ -40,18 +45,27 @@ main
     .card
       width 100%
       max-width 760px
-      transition max-height ease-in-out 1s
+      transition all ease-in-out 1s
       margin 0 auto
       padding 20px
       background white
       border-radius 2px
-    .details
+      overflow hidden
+    .projects
       max-height 0
       padding 0
-      overflow hidden
+      &.active
+        max-height 100%
+        padding 20px
+    .details
+      max-height 0
       padding 0 20px
       &.active
         max-height 100%
+    .technician
+      opacity 0
+      &.active
+        opacity 1
 
 account-nav
   position fixed
@@ -91,7 +105,7 @@ technician-list
   border-top 1px solid lightgray
   padding-bottom 20px
   ul
-    technician
+    technician-item
       display inline-table
       table-layout fixed
       width 100%
@@ -115,7 +129,7 @@ technician-list
         &:active
           outline none
           border-color lighten(red, 40%)
-    technician[action^='Assign'] button:active
+    technician-item[action^='Assign'] button:active
       border-color lighten(green, 60%)
 
 .back-button
