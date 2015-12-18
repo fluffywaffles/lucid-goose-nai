@@ -56,14 +56,14 @@ app.all('/api/technician', function (req, res, next) {
     console.log('index up! Leggo')
     next()
   }).catch(function (err) {
-    res.json(err)
+    res.status(500).json(err)
   })
 })
 
 app.get('/api/technician/nearby', function (req, res) {
   console.log(req.query)
   db.query('technicians/by_zip').catch(function (err) {
-    res.json(err)
+    res.status(500).json(err)
   }).then(function (docs) {
     distance = zipcode.distanceFrom(req.query.zip)
     distances = docs.rows.map(function (t) {
@@ -95,9 +95,10 @@ app.route('/api/technician')
     }).then(function (docs) {
       res.json(docs)
     }).catch(function (err) {
-      res.json(err)
+      res.status(400).json(err)
     })
   }).put(function (req, res) {
+    console.log('dafuq')
     var prospective = req.body
 
     if (technician.verifyTechnician(prospective)) {
@@ -106,10 +107,10 @@ app.route('/api/technician')
         .then(function (response) {
         res.send('successfully created \n\n\n' + JSON.stringify(response))
       }).catch(function (err) {
-        res.json(err)
+        res.status(500).json(err)
       })
     } else {
-      res.send('Invalid technician.')
+      res.status(400).send('Invalid technician.')
     }
   })
 
@@ -124,7 +125,7 @@ app.route('/api/technician/assign')
     ).then(function (response) {
       res.json(response)
     }).catch(function (err) {
-      res.json(err)
+      res.status(500).json(err)
     })
   })
 
@@ -133,7 +134,7 @@ app.get('/api/work-orders', function (req, res) {
     .then(function (data) {
       res.json(data)
     }).catch(function (err) {
-      res.json(err)
+      res.status(500).json(err)
     })
 })
 
@@ -142,7 +143,7 @@ app.get('/api/work-orders/get', function (req, res) {
     .then(function (data) {
     res.json(data)
   }).catch(function (err) {
-    res.json(err)
+    res.status(500).json(err)
   })
 })
 

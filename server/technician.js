@@ -9,6 +9,8 @@ var technician = {
   city: String,
   state: String,
   zip: String,
+  // optional
+  $optional$: true,
   states: [ String ],
   skills: [ String ],
   phoneSystems: [ String ],
@@ -24,12 +26,16 @@ var technician = {
 }
 
 function _verify (model, object) {
+  var opt = false
+
   return Object.keys(model).every(function (field) {
     var type = model[field]
       , data = object[field]
 
-    console.log(type)
-    console.log(data)
+    if (field === '$optional$' && type === true) {
+      opt = true
+      return true
+    }
 
     if (typeof data === 'object') {
       // multiple possible types
@@ -37,18 +43,21 @@ function _verify (model, object) {
     }
     else if (type instanceof Array) {
       // array of a type
+      if (opt) return opt
       type = type[0]
       if (data instanceof Array) {
         return data.every(function (datum) {
-          return datum instanceof type
+          return (datum instanceof type)
+            || typeof data === typeof type()
         })
       }
       else return false
     }
     else {
       // just a type
-      return data instanceof type
-        || typeof data == typeof type()
+      return opt
+        || (data instanceof type)
+        || typeof data === typeof type()
     }
   })
 }
