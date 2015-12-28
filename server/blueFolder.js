@@ -42,14 +42,15 @@ blueFolder.serviceRequests.get = function (id) {
   )
 }
 
-blueFolder.serviceRequests.assignTech = function (sr, tech) {
+blueFolder.serviceRequests.assignTech = function (sr, techs) {
+  console.log(techs)
   return blueFolder._req (
     serviceRequestsEndpoint + '/edit.aspx',
     '<request>'
     +  '<serviceRequestEdit>'
     +    '<customFields>'
     +      '<customField name="technicians">'
-    +        JSON.stringify(tech)
+    +        JSON.stringify(techs)
     +      '</customField>'
     +    '</customFields>'
     +    '<serviceRequestId>' + sr.servicerequestid + '</serviceRequestId>'

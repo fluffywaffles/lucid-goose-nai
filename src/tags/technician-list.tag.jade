@@ -40,7 +40,11 @@ technician-list
 
     @unassign = (tech) ->
       removed = self.assigned.slice!
-      removed.splice tech.index, 1
+
+      index = self.assigned-ids.index-of tech.id
+      debugger
+
+      removed.splice index, 1
       self.update {
         assigned: removed
         assigned-ids: removed.map (.id)

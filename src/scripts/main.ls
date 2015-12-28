@@ -15,9 +15,13 @@ riot.route '/work-order/*' (index) ->
       app.current-technicians = [ ]
 
       if servicerequest.customfields
-        technicians = servicerequest.customfields.customfield.value
+        custom-fields = servicerequest.customfields.customfield
+
+        technicians = [].filter.call custom-fields, (f) ->
+          f.name is 'technicians'
+
         try
-          app.current-technicians = JSON.parse technicians
+          app.current-technicians = JSON.parse technicians.0.value
         catch e
           console.info 'Parse fail. Assume no technicians are assigned.'
           console.info e
